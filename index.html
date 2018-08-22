@@ -4,94 +4,107 @@
     <meta charset="UTF-8">
     <title>Game</title>
     <link rel="stylesheet" href="styles.css">
-    <script>
-        var cardId = [102, 103, 104, 105, 106];
-        var cards = ["102", "103", "104", "105", "106"];
-        var stackSetup = function (){
-            console.log("game init");
 
-            var allCards = [];
-            var allCardsString = [];
-
-            for(var i = 1; i<5; i++) {
-                for(var j=2;j<15;j++) {
-                    allCards.push(i * 100 + j);
-                    allCardsString.push(i*100 + j + "");
-                }
-            }
-
-            for(var i = 0;i<52;i++){
-                var el = document.getElementById(allCardsString[i]);
-                console.log(el);
-                el.style.top = (i*2) + "px";
-                el.style.left = (i*2) + "px";
-                //console.log("el style: " + el.style);
-                //console.log("el top: " + el.style.top);
-            }
-        }
-
-    </script>
 </head>
-<body onload="stackSetup()">
+<body>
 <div class="red-text">Durak card game</div>
 
 <div class="game-filed">
-    <div id="102" class="card-back stack-1"></div>
-    <div id="103" class="card-back stack-2"></div>
-    <div id="104" class="card-back stack-3"></div>
-    <div id="105" class="card-back stack-4"></div>
-    <div id="106" class="card-back stack-4"></div>
-    <div id="107" class="card-back stack-4"></div>
-    <div id="108" class="card-back stack-4"></div>
-    <div id="109" class="card-back stack-4"></div>
-    <div id="110" class="card-back stack-4"></div>
-    <div id="111" class="card-back stack-4"></div>
-    <div id="112" class="card-back stack-4"></div>
-    <div id="113" class="card-back stack-4"></div>
-    <div id="114" class="card-back stack-4"></div>
+    <div id="102" class="card-back"></div>
+    <div id="103" class="card-back"></div>
+    <div id="104" class="card-back"></div>
+    <div id="105" class="card-back"></div>
+    <div id="106" class="card-back"></div>
+    <div id="107" class="card-back"></div>
+    <div id="108" class="card-back"></div>
+    <div id="109" class="card-back"></div>
+    <div id="110" class="card-back"></div>
+    <div id="111" class="card-back"></div>
+    <div id="112" class="card-back"></div>
+    <div id="113" class="card-back"></div>
+    <div id="114" class="card-back"></div>
 
-    <div id="202" class="card-back stack-1"></div>
-    <div id="203" class="card-back stack-2"></div>
-    <div id="204" class="card-back stack-3"></div>
-    <div id="205" class="card-back stack-4"></div>
-    <div id="206" class="card-back stack-4"></div>
-    <div id="207" class="card-back stack-4"></div>
-    <div id="208" class="card-back stack-4"></div>
-    <div id="209" class="card-back stack-4"></div>
-    <div id="210" class="card-back stack-4"></div>
-    <div id="211" class="card-back stack-4"></div>
-    <div id="212" class="card-back stack-4"></div>
-    <div id="213" class="card-back stack-4"></div>
-    <div id="214" class="card-back stack-4"></div>
+    <div id="202" class="card-back"></div>
+    <div id="203" class="card-back"></div>
+    <div id="204" class="card-back"></div>
+    <div id="205" class="card-back"></div>
+    <div id="206" class="card-back"></div>
+    <div id="207" class="card-back"></div>
+    <div id="208" class="card-back"></div>
+    <div id="209" class="card-back"></div>
+    <div id="210" class="card-back"></div>
+    <div id="211" class="card-back"></div>
+    <div id="212" class="card-back"></div>
+    <div id="213" class="card-back"></div>
+    <div id="214" class="card-back"></div>
 
-    <div id="302" class="card-back stack-1"></div>
-    <div id="303" class="card-back stack-2"></div>
-    <div id="304" class="card-back stack-3"></div>
-    <div id="305" class="card-back stack-4"></div>
-    <div id="306" class="card-back stack-4"></div>
-    <div id="307" class="card-back stack-4"></div>
-    <div id="308" class="card-back stack-4"></div>
-    <div id="309" class="card-back stack-4"></div>
-    <div id="310" class="card-back stack-4"></div>
-    <div id="311" class="card-back stack-4"></div>
-    <div id="312" class="card-back stack-4"></div>
-    <div id="313" class="card-back stack-4"></div>
-    <div id="314" class="card-back stack-4"></div>
+    <div id="302" class="card-back"></div>
+    <div id="303" class="card-back"></div>
+    <div id="304" class="card-back"></div>
+    <div id="305" class="card-back"></div>
+    <div id="306" class="card-back"></div>
+    <div id="307" class="card-back"></div>
+    <div id="308" class="card-back"></div>
+    <div id="309" class="card-back"></div>
+    <div id="310" class="card-back"></div>
+    <div id="311" class="card-back"></div>
+    <div id="312" class="card-back"></div>
+    <div id="313" class="card-back"></div>
+    <div id="314" class="card-back"></div>
 
-    <div id="402" class="card-back stack-1"></div>
-    <div id="403" class="card-back stack-2"></div>
-    <div id="404" class="card-back stack-3"></div>
-    <div id="405" class="card-back stack-4"></div>
-    <div id="406" class="card-back stack-4"></div>
-    <div id="407" class="card-back stack-4"></div>
-    <div id="408" class="card-back stack-4"></div>
-    <div id="409" class="card-back stack-4"></div>
-    <div id="410" class="card-back stack-4"></div>
-    <div id="411" class="card-back stack-4"></div>
-    <div id="412" class="card-back stack-4"></div>
-    <div id="413" class="card-back stack-4"></div>
-    <div id="414" class="card-back stack-4"></div>
+    <div id="402" class="card-back"></div>
+    <div id="403" class="card-back"></div>
+    <div id="404" class="card-back"></div>
+    <div id="405" class="card-back"></div>
+    <div id="406" class="card-back"></div>
+    <div id="407" class="card-back"></div>
+    <div id="408" class="card-back"></div>
+    <div id="409" class="card-back"></div>
+    <div id="410" class="card-back"></div>
+    <div id="411" class="card-back"></div>
+    <div id="412" class="card-back"></div>
+    <div id="413" class="card-back"></div>
+    <div id="414" class="card-back"></div>
 
 </div>
+
+<script>
+    var cardId = [102, 103, 104, 105, 106];
+    var cards = ["102", "103", "104", "105", "106"];
+
+    var allCards = [];
+    var allCardsString = [];
+
+    var stackSetup = function (){
+        console.log("stack setup");
+
+        for(var i = 1; i<5; i++) {
+            for(var j=2;j<15;j++) {
+                allCards.push(i * 100 + j);
+                allCardsString.push(i*100 + j + "");
+            }
+        }
+
+    }
+    stackSetup();
+
+    var relayoutStack =  function() {
+        console.log("stack relayout");
+        for (var i = 0; i < 52; i++) {
+            var el = document.getElementById(allCardsString[i]);
+            console.log(el);
+            el.style.top = (i * 2) + "px";
+            el.style.left = (i * 2) + "px";
+            //console.log("el style: " + el.style);
+            //console.log("el top: " + el.style.top);
+        }
+    }
+
+    relayoutStack();
+
+    var firstHand = [];
+    var secondHand = [];
+
+</script>
 </body>
 </html>
