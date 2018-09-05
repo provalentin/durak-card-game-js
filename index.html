@@ -7,8 +7,6 @@
 
 </head>
 <body>
-<div class="red-text">Durak card game</div>
-
 <div class="game-filed">
     <div id="102" class="card-back"></div>
     <div id="103" class="card-back"></div>
@@ -72,8 +70,29 @@
     var cardId = [102, 103, 104, 105, 106];
     var cards = ["102", "103", "104", "105", "106"];
 
+    var Card = function(id) {
+        this.id = id;
+        this.isVisible = false;
+        //status:
+        // 0 - stack,
+        // 1 - first hand,
+        // 2 - second hand,
+        // 3 - out
+        this.status = 0;
+    }
+
+    const FIRST_HAND_OFFSET_X = 100;
+    const FIRST_HAND_OFFSET_Y = 200;
+    const SECOND_HAND_OFFSET_X = 100;
+    const SECOND_HAND_OFFSET_Y = 0;
+    const CARD_HAND_WIDTH = 75;
+
     var allCards = [];
+    var cards = [];
     var allCardsString = [];
+    var firstHand = [];
+    var secondHand = [];
+    var status = {};
 
     var stackSetup = function (){
         console.log("stack setup");
@@ -82,11 +101,32 @@
             for(var j=2;j<15;j++) {
                 allCards.push(i * 100 + j);
                 allCardsString.push(i*100 + j + "");
+                cards.push(new Card(i * 100 + j));
             }
         }
 
     }
-    stackSetup();
+
+    function shuffle(array) {
+        let counter = array.length;
+
+        // While there are elements in the array
+        while (counter > 0) {
+            // Pick a random index
+            let index = Math.floor(Math.random() * counter);
+
+            // Decrease counter by 1
+            counter--;
+
+            // And swap the last element with it
+            let temp = array[counter];
+            array[counter] = array[index];
+            array[index] = temp;
+        }
+
+        return array;
+    }
+
 
     var relayoutStack =  function() {
         console.log("stack relayout");
@@ -100,10 +140,76 @@
         }
     }
 
-    relayoutStack();
+    var moveToFirstHand = function() {
+        console.log("move to first hand");
+        for(var i=0;i<6;i++) {
+            console.log(cards[46+i]);
+            cards[46 + i].status = 1;
+        }
+    }
 
-    var firstHand = [];
-    var secondHand = [];
+    var moveToSecondHand = function() {
+        console.log("move to second hand");
+        for(var i=0;i<6;i++) {
+            console.log(cards[40+i]);
+            cards[40 + i].status = 2;
+        }
+    }
+
+    var renderFirstHand = function() {
+        console.log("render first hand");
+        var localCounter = 0;
+        for(var i=0;i<52;i++){
+            if(cards[i].status===1) {
+                //firstHand.push(i);
+                localCounter++;
+                var el = document.getElementById(cards[i].id);
+                console.log(el);
+                el.style.left = FIRST_HAND_OFFSET_X + localCounter * CARD_HAND_WIDTH+"px";
+                el.style.top = FIRST_HAND_OFFSET_Y+"px";
+                console.log(el);
+            }
+        }
+        //console.log(firstHand);
+    }
+
+    var renderSecondHand = function() {
+        console.log("render second hand");
+        var localCounter = 0;
+        for(var i=0;i<52;i++){
+            if(cards[i].status===2) {
+                //firstHand.push(i);
+                localCounter++;
+                var el = document.getElementById(cards[i].id);
+                console.log(el);
+                el.style.left = SECOND_HAND_OFFSET_X + localCounter * CARD_HAND_WIDTH+"px";
+                el.style.top = SECOND_HAND_OFFSET_Y+"px";
+                console.log(el);
+            }
+        }
+    }
+
+
+    stackSetup();
+    relayoutStack();
+    console.log("before shuffle");
+    console.log(allCards);
+
+    //console.log("after shuffle");
+    //console.log(shuffle(allCards));
+
+    moveToFirstHand();
+    moveToSecondHand();
+    renderFirstHand();
+    renderSecondHand();
+
+    var testCard = new Card(111);
+    //console.log(testCard);
+    //console.log(cards)
+
+
+
+
 
 </script>
 </body>
