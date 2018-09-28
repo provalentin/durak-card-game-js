@@ -113,7 +113,7 @@
 
     }
 
-    function shuffle(array) {
+    var shuffle = function(array) {
         let counter = array.length;
 
         // While there are elements in the array
@@ -227,11 +227,23 @@
         }
     }
 
+    //need to fix undefined
+    var setupClickHandlers = function() {
+        for(var i=0;i<52;i++) {
+            document.getElementById(cards[i].id).onclick = function () {
+
+                if (cards[i].status === 1 || cards[i].status === 2) {
+                    cards[i].status = 3;
+                    renderCenter();
+                }
+            }
+        }
+    }
+
 
     stackSetup();
     relayoutStack();
-    renderCenter();
-    renderTrash();
+
     console.log("before shuffle");
     console.log(allCards);
 
@@ -242,6 +254,13 @@
     moveToSecondHand();
     renderFirstHand();
     renderSecondHand();
+
+    renderCenter();
+    renderTrash();
+
+    setupClickHandlers();
+
+
 
     var testCard = new Card(111);
     //console.log(testCard);
