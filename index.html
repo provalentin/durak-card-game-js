@@ -137,7 +137,7 @@
     var relayoutStack =  function() {
         console.log("stack relayout");
         for (var i = 0; i < 52; i++) {
-            if(cards[i].status === 0)
+            if(cards[i].status === 0) {
                 var el = document.getElementById(allCardsString[i]);
                 console.log(el);
                 el.style.top = (i * 2) + "px";
