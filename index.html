@@ -85,6 +85,8 @@
     const FIRST_HAND_OFFSET_Y = 200;
     const SECOND_HAND_OFFSET_X = 100;
     const SECOND_HAND_OFFSET_Y = 0;
+    const CENTER_OFFSET_Y = 100;
+    const TRASH_OFFSET_X = 600;
     const CARD_HAND_WIDTH = 75;
 
     var allCards = [];
@@ -103,6 +105,10 @@
                 allCardsString.push(i*100 + j + "");
                 cards.push(new Card(i * 100 + j));
             }
+        }
+        
+        for (var i = 0; i < 52; i++) {
+          cards[i].status = 0;   
         }
 
     }
@@ -131,12 +137,14 @@
     var relayoutStack =  function() {
         console.log("stack relayout");
         for (var i = 0; i < 52; i++) {
-            var el = document.getElementById(allCardsString[i]);
-            console.log(el);
-            el.style.top = (i * 2) + "px";
-            el.style.left = (i * 2) + "px";
-            //console.log("el style: " + el.style);
-            //console.log("el top: " + el.style.top);
+            if(cards[i].status === 0)
+                var el = document.getElementById(allCardsString[i]);
+                console.log(el);
+                el.style.top = (i * 2) + "px";
+                el.style.left = (i * 2) + "px";
+                //console.log("el style: " + el.style);
+                //console.log("el top: " + el.style.top);
+            }
         }
     }
 
@@ -188,10 +196,42 @@
             }
         }
     }
+    
+    var renderCenter = function() {
+        console.log("render center battle field");
+        var localCounter = 0;
+        for(var i=0;i<52;i++){
+            if(cards[i].status===3) {
+                localCounter++;
+                var el = document.getElementById(cards[i].id);
+                console.log(el);
+                el.style.left = SECOND_HAND_OFFSET_X + localCounter * CARD_HAND_WIDTH+"px";
+                el.style.top = CENTER_OFFSET_Y+"px";
+                console.log(el);
+            }
+        }
+    }
+    
+    var renderTrash = function() {
+        console.log("render trash");
+        var localCounter = 0;
+        for(var i=0;i<52;i++){
+            if(cards[i].status===4) {
+                localCounter++;
+                var el = document.getElementById(cards[i].id);
+                console.log(el);
+                el.style.left = TRASH_OFFSET_X + localCounter * 2+"px";
+                el.style.top = CENTER_OFFSET_Y+"px";
+                console.log(el);
+            }
+        }
+    }
 
 
     stackSetup();
     relayoutStack();
+    renderCenter();
+    renderTrash();
     console.log("before shuffle");
     console.log(allCards);
 
