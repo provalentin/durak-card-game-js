@@ -95,6 +95,9 @@
     var firstHand = [];
     var secondHand = [];
     var status = {};
+    var isGameOver = false;
+    var isFirstPlayer = true;
+    var currentPlayer = 1;
 
     var stackSetup = function (){
         console.log("stack setup");
@@ -164,10 +167,35 @@
         }
     }
 
-    function moveToCenter(index) {
-        console.log("move to center i: " + index);
-        if (cards[index].status === 1 || cards[index].status === 2) {
+    function userMove(index) {
+        if(cards[index].status === currentPlayer ) {
             cards[index].status = 3;
+        }
+    }
+
+    function moveToCenter(index) {
+        console.log('click on index # ' + index);
+        if (cards[index].status === currentPlayer) {
+            console.log("Player move # " + currentPlayer);
+            console.log("move to center i: " + index);
+
+            cards[index].status = 3;
+
+            console.log("need relayout hands and center");
+
+            renderSecondHand();
+            renderFirstHand();
+            renderCenter();
+
+            changePlayer();
+        }
+    }
+
+    function changePlayer() {
+        if(currentPlayer === 2) {
+            currentPlayer = 1;
+        }else {
+            currentPlayer = 2;
         }
     }
 
@@ -234,9 +262,22 @@
         }
     }
 
+    function handleFirstPlayerMove() {
+        console.log('handle first player move');
+    }
+
+    function handleSecondPlayerMove() {
+        console.log('handle second player move');
+    }
+
+
     function setupClickHandlers() {
-        for(var i=0;i<52;i++) {
-            document.getElementById(cards[i].id).onclick = moveToCenter(i);
+        for(let i=0;i<52;i++) {
+            document.getElementById(cards[i].id).onclick = function(){
+                moveToCenter(i);
+                //userMove(i);
+
+            }
         }
     }
 
