@@ -139,7 +139,7 @@
         for (var i = 0; i < 52; i++) {
             if(cards[i].status === 0) {
                 var el = document.getElementById(allCardsString[i]);
-                console.log(el);
+                //console.log(el);
                 el.style.top = (i * 2) + "px";
                 el.style.left = (i * 2) + "px";
                 //console.log("el style: " + el.style);
@@ -151,7 +151,7 @@
     var moveToFirstHand = function() {
         console.log("move to first hand");
         for(var i=0;i<6;i++) {
-            console.log(cards[46+i]);
+            //console.log(cards[46+i]);
             cards[46 + i].status = 1;
         }
     }
@@ -159,8 +159,15 @@
     var moveToSecondHand = function() {
         console.log("move to second hand");
         for(var i=0;i<6;i++) {
-            console.log(cards[40+i]);
+            //console.log(cards[40+i]);
             cards[40 + i].status = 2;
+        }
+    }
+
+    function moveToCenter(index) {
+        console.log("move to center i: " + index);
+        if (cards[index].status === 1 || cards[index].status === 2) {
+            cards[index].status = 3;
         }
     }
 
@@ -172,10 +179,10 @@
                 //firstHand.push(i);
                 localCounter++;
                 var el = document.getElementById(cards[i].id);
-                console.log(el);
+                //console.log(el);
                 el.style.left = FIRST_HAND_OFFSET_X + localCounter * CARD_HAND_WIDTH+"px";
                 el.style.top = FIRST_HAND_OFFSET_Y+"px";
-                console.log(el);
+                //console.log(el);
             }
         }
         //console.log(firstHand);
@@ -189,10 +196,10 @@
                 //firstHand.push(i);
                 localCounter++;
                 var el = document.getElementById(cards[i].id);
-                console.log(el);
+                //console.log(el);
                 el.style.left = SECOND_HAND_OFFSET_X + localCounter * CARD_HAND_WIDTH+"px";
                 el.style.top = SECOND_HAND_OFFSET_Y+"px";
-                console.log(el);
+                //console.log(el);
             }
         }
     }
@@ -204,10 +211,10 @@
             if(cards[i].status===3) {
                 localCounter++;
                 var el = document.getElementById(cards[i].id);
-                console.log(el);
+                //console.log(el);
                 el.style.left = SECOND_HAND_OFFSET_X + localCounter * CARD_HAND_WIDTH+"px";
                 el.style.top = CENTER_OFFSET_Y+"px";
-                console.log(el);
+                //console.log(el);
             }
         }
     }
@@ -219,24 +226,17 @@
             if(cards[i].status===4) {
                 localCounter++;
                 var el = document.getElementById(cards[i].id);
-                console.log(el);
+                //console.log(el);
                 el.style.left = TRASH_OFFSET_X + localCounter * 2+"px";
                 el.style.top = CENTER_OFFSET_Y+"px";
-                console.log(el);
+                //console.log(el);
             }
         }
     }
 
-    //need to fix undefined
-    var setupClickHandlers = function() {
+    function setupClickHandlers() {
         for(var i=0;i<52;i++) {
-            document.getElementById(cards[i].id).onclick = function () {
-
-                if (cards[i].status === 1 || cards[i].status === 2) {
-                    cards[i].status = 3;
-                    renderCenter();
-                }
-            }
+            document.getElementById(cards[i].id).onclick = moveToCenter(i);
         }
     }
 
@@ -245,7 +245,6 @@
     relayoutStack();
 
     console.log("before shuffle");
-    console.log(allCards);
 
     //console.log("after shuffle");
     //console.log(shuffle(allCards));
@@ -260,16 +259,8 @@
 
     setupClickHandlers();
 
-
-
-    var testCard = new Card(111);
-    //console.log(testCard);
-    //console.log(cards)
-
-
-
-
-
+    //print all cards
+    console.log(cards);
 </script>
 </body>
 </html>
