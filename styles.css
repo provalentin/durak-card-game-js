@@ -10,6 +10,11 @@
     background-repeat: no-repeat;
 }
 
+.next_button{
+    position: absolete;
+    top: 500px;
+    left: 100px;
+}
 .card{
     position: absolute;
     width: 72px;
