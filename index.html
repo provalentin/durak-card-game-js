@@ -82,12 +82,13 @@
     }
 
     const FIRST_HAND_OFFSET_X = 100;
-    const FIRST_HAND_OFFSET_Y = 200;
+    const FIRST_HAND_OFFSET_Y = 300;
     const SECOND_HAND_OFFSET_X = 100;
     const SECOND_HAND_OFFSET_Y = 0;
-    const CENTER_OFFSET_Y = 100;
+    const CENTER_OFFSET_Y = 120;
+    const CENTER_OFFSET_Y2 = 170;
     const TRASH_OFFSET_X = 600;
-    const CARD_HAND_WIDTH = 75;
+    const CARD_HAND_WIDTH = 85;
 
     var allCards = [];
     var cards = [];
@@ -240,8 +241,11 @@
                 localCounter++;
                 var el = document.getElementById(cards[i].id);
                 //console.log(el);
-                el.style.left = SECOND_HAND_OFFSET_X + localCounter * CARD_HAND_WIDTH+"px";
-                el.style.top = CENTER_OFFSET_Y+"px";
+                el.style.left = SECOND_HAND_OFFSET_X
+                    + Math.floor((localCounter + 1) / 2) * CARD_HAND_WIDTH+"px";
+                el.style.top = localCounter %2==0?
+                    CENTER_OFFSET_Y+"px":
+                    CENTER_OFFSET_Y2+"px";
                 //console.log(el);
             }
         }
