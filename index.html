@@ -79,6 +79,14 @@
         // 2 - second hand,
         // 3 - out
         this.status = 0;
+        this.hide = function(){
+            document.getElementById(this.id).style
+                .backgroundImage = "url('img/0.png'";
+        }
+        this.show = function(){
+            document.getElementById(this.id).style
+                .backgroundImage = "url('img/" + id + ".png')";
+        }
     }
 
     const FIRST_HAND_OFFSET_X = 100;
@@ -146,6 +154,7 @@
                 //console.log(el);
                 el.style.top = (i * 2) + "px";
                 el.style.left = (i * 2) + "px";
+                el.style.backgroundImage = "url('img/0.png')";
                 //console.log("el style: " + el.style);
                 //console.log("el top: " + el.style.top);
             }
@@ -211,7 +220,7 @@
                 //console.log(el);
                 el.style.left = FIRST_HAND_OFFSET_X + localCounter * CARD_HAND_WIDTH+"px";
                 el.style.top = FIRST_HAND_OFFSET_Y+"px";
-                //console.log(el);
+                el.style.backgroundImage = "url('img/" + cards[i].id + ".png')";
             }
         }
         //console.log(firstHand);
@@ -228,7 +237,7 @@
                 //console.log(el);
                 el.style.left = SECOND_HAND_OFFSET_X + localCounter * CARD_HAND_WIDTH+"px";
                 el.style.top = SECOND_HAND_OFFSET_Y+"px";
-                //console.log(el);
+
             }
         }
     }
@@ -247,6 +256,7 @@
                     CENTER_OFFSET_Y+"px":
                     CENTER_OFFSET_Y2+"px";
                 //console.log(el);
+                el.style.backgroundImage = "url('img/" + cards[i].id + ".png')";
             }
         }
     }
