@@ -152,9 +152,7 @@
         console.log("move to first hand");
         var currentSize = getSize(1);
         for(var i=currentSize;i<6;i++) {
-            //console.log(cards[46+i]);
             var stackSize = getSize(0);
-            console.log("stack size:" + stackSize);
             if(stackSize>0) {
                 cards[stackSize - 1].status = 1;
             }
@@ -162,45 +160,50 @@
     }
 
     var refillSecondHand = function() {
-        console.log("second hand size " + getSize(2));
         console.log("move to second hand");
-
         var currentSize = getSize(2);
         for(var i=currentSize;i<6;i++) {
-            //console.log(cards[40+i]);
             var stackSize = getSize(0);
-            console.log("stack size:" + stackSize);
             if(stackSize>0) {
                 cards[stackSize - 1].status = 2;
             }
         }
-        console.log("second hand size " + getSize(2));
     }
 
     function moveToCenter(index) {
         console.log('click on index # ' + index);
         if (cards[index].status === currentPlayer) {
-            console.log("Player move # " + currentPlayer);
-            console.log("move to center i: " + index);
+            if(isValidMove(index)) {
+                cards[index].status = 3;
+                centerStack.push(index);
 
-            cards[index].status = 3;
-            centerStack.push(index);
-            console.log("center stack size: " + centerStack.length);
-            console.log(centerStack);
-            console.log("need relayout hands and center");
+                renderSecondHand();
+                renderFirstHand();
+                renderCenter();
 
-            renderSecondHand();
-            renderFirstHand();
-            renderCenter();
+                changePlayer();
+            }
+        }
+    }
 
-            changePlayer();
+    function isValidMove(index) {
+        var currentCardId = cards[index].id;
+        if(centerStack.length===0) return true;
+        if(centerStack.length % 2 === 1) {
+            var prevCardId = cards[centerStack[centerStack.length - 1]].id;
+            console.log("Current > Prev: "  + currentCardId + " " + prevCardId);
+            //TODO: need to check main kind
+            return currentCardId > prevCardId;
+        } else {
+          //TODO: check same kind and main kind
+          return true; //for test only, remove later
         }
     }
 
     function changePlayer() {
         if(currentPlayer === 2) {
             currentPlayer = 1;
-        }else {
+        }else{
             currentPlayer = 2;
         }
     }
@@ -232,6 +235,8 @@
                 var el = document.getElementById(cards[i].id);
                 el.style.left = SECOND_HAND_OFFSET_X + localCounter * CARD_HAND_WIDTH+"px";
                 el.style.top = SECOND_HAND_OFFSET_Y+"px";
+                //TODO: hide after testing
+                el.style.backgroundImage = "url('img/" + cards[i].id + ".png')";
             }
         }
     }
@@ -292,14 +297,6 @@
         return counter;
     }
 
-    // function handleFirstPlayerMove() {
-    //     console.log('handle first player move');
-    // }
-    //
-    // function handleSecondPlayerMove() {
-    //     console.log('handle second player move');
-    // }
-
     function setupClickHandlers() {
         for(let i=0;i<52;i++) {
             document.getElementById(cards[i].id).onclick = function(){
@@ -308,12 +305,14 @@
         }
         document.getElementById("next_move").onclick = function(){
             console.log("handle next move");
+            var isOK = centerStack.length % 2 === 0;
             for(let i=0;i<52;i++) {
                 if(cards[i].status===3) {
-                    cards[i].status = 4;
+                    cards[i].status = isOK?4:currentPlayer;
                     cards[i].hide();
                 }
             }
+            changePlayer();
             renderTrash();
             refillFirstHand();
             renderFirstHand();
@@ -324,12 +323,8 @@
     }
 
     stackSetup();
+    console.log(shuffle(cards));
     relayoutStack();
-
-    //console.log("before shuffle");
-    //console.log("after shuffle");
-    //console.log(shuffle(allCards));
-
     refillFirstHand();
     refillSecondHand();
     renderFirstHand();
