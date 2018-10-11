@@ -100,6 +100,7 @@
     var allCardsString = [];
     var firstHand = [];
     var secondHand = [];
+    var centerStack = [];
     var status = {};
     var isGameOver = false;
     var isFirstPlayer = true;
@@ -183,7 +184,9 @@
             console.log("move to center i: " + index);
 
             cards[index].status = 3;
-
+            centerStack.push(index);
+            console.log("center stack size: " + centerStack.length);
+            console.log(centerStack);
             console.log("need relayout hands and center");
 
             renderSecondHand();
@@ -236,18 +239,33 @@
     var renderCenter = function() {
         console.log("render center battle field");
         var localCounter = 0;
-        for(let i=0;i<52;i++){
-            if(cards[i].status===3) {
-                localCounter++;
-                var el = document.getElementById(cards[i].id);
-                //console.log(el);
-                el.style.left = SECOND_HAND_OFFSET_X
-                    + Math.floor((localCounter + 1) / 2) * CARD_HAND_WIDTH+"px";
-                el.style.top = localCounter %2==0?
-                    CENTER_OFFSET_Y+"px":
-                    CENTER_OFFSET_Y2+"px";
-                el.style.backgroundImage = "url('img/" + cards[i].id + ".png')";
-            }
+
+        //stupid render method
+        // for(let i=0;i<52;i++){
+        //     if(cards[i].status===3) {
+        //         localCounter++;
+        //         var el = document.getElementById(cards[i].id);
+        //         // console.log();
+        //         el.style.left = SECOND_HAND_OFFSET_X
+        //             + Math.floor((localCounter + 1) / 2) * CARD_HAND_WIDTH+"px";
+        //         el.style.top = localCounter %2==0?
+        //             CENTER_OFFSET_Y+"px":
+        //             CENTER_OFFSET_Y2+"px";
+        //         el.style.backgroundImage = "url('img/" + cards[i].id + ".png')";
+        //     }
+        // }
+
+        //correct sequence
+        for(let i=0;i<centerStack.length;i++){
+            var el = document.getElementById(cards[centerStack[i]].id);
+            //console.log(el);
+            el.style.left = SECOND_HAND_OFFSET_X
+                + Math.floor((localCounter + 2) / 2) * CARD_HAND_WIDTH+"px";
+            el.style.top = localCounter %2==0?
+                CENTER_OFFSET_Y+"px":
+                CENTER_OFFSET_Y2+"px";
+            el.style.backgroundImage = "url('img/" + cards[centerStack[i]].id + ".png')";
+            localCounter++;
         }
     }
     
@@ -301,6 +319,7 @@
             renderFirstHand();
             refillSecondHand();
             renderSecondHand();
+            centerStack = [];
         };
     }
 
