@@ -186,6 +186,10 @@
         }
     }
 
+    function getKind(id){
+        return (id - (id%100))/100;
+    }
+
     function isValidMove(index) {
         var currentCardId = cards[index].id;
         if(centerStack.length===0) return true;
@@ -193,7 +197,8 @@
             var prevCardId = cards[centerStack[centerStack.length - 1]].id;
             console.log("Current > Prev: "  + currentCardId + " " + prevCardId);
             //TODO: need to check main kind
-            return currentCardId > prevCardId;
+            return (getKind(currentCardId)===getKind(prevCardId))
+                &&(currentCardId > prevCardId);
         } else {
           //TODO: check same kind and main kind
           return true; //for test only, remove later
@@ -236,7 +241,7 @@
                 el.style.left = SECOND_HAND_OFFSET_X + localCounter * CARD_HAND_WIDTH+"px";
                 el.style.top = SECOND_HAND_OFFSET_Y+"px";
                 //TODO: hide after testing
-                el.style.backgroundImage = "url('img/" + cards[i].id + ".png')";
+                cards[i].show();
             }
         }
     }
