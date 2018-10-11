@@ -149,18 +149,29 @@
 
     var refillFirstHand = function() {
         console.log("move to first hand");
-        for(var i=0;i<6;i++) {
+        var currentSize = getSize(1);
+        for(var i=currentSize;i<6;i++) {
             //console.log(cards[46+i]);
-            cards[46 + i].status = 1;
+            var stackSize = getSize(0);
+            console.log("stack size:" + stackSize);
+            if(stackSize>0) {
+                cards[stackSize - 1].status = 1;
+            }
         }
     }
 
     var refillSecondHand = function() {
         console.log("second hand size " + getSize(2));
         console.log("move to second hand");
-        for(var i=0;i<6;i++) {
+
+        var currentSize = getSize(2);
+        for(var i=currentSize;i<6;i++) {
             //console.log(cards[40+i]);
-            cards[40 + i].status = 2;
+            var stackSize = getSize(0);
+            console.log("stack size:" + stackSize);
+            if(stackSize>0) {
+                cards[stackSize - 1].status = 2;
+            }
         }
         console.log("second hand size " + getSize(2));
     }
@@ -286,6 +297,10 @@
                 }
             }
             renderTrash();
+            refillFirstHand();
+            renderFirstHand();
+            refillSecondHand();
+            renderSecondHand();
         };
     }
 
