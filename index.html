@@ -191,6 +191,18 @@
         return (id - (id%100))/100;
     }
 
+    function getValue(id) { 
+        return id % 100;
+    }
+    
+    function isValidValue(id) {
+      var values = [];  
+      for(let i=0;i<centerStack.length;i++){
+           values.push(centerStack[i].id % 100);
+      }
+      return values.includes(id%100);
+    }
+    
     function isValidMove(index) {
         var currentCardId = cards[index].id;
         if(centerStack.length===0) return true;
@@ -202,7 +214,7 @@
                 &&(currentCardId > prevCardId);
         } else {
           //TODO: check same kind and main kind
-          return true; //for test only, remove later
+          return isValidValue(currentCardId); //for test only, remove later
         }
     }
 
