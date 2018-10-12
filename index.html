@@ -105,6 +105,7 @@
     var isGameOver = false;
     var isFirstPlayer = true;
     var currentPlayer = 1;
+    var mainKind = 0;
 
     var stackSetup = function (){
         console.log("stack setup");
@@ -147,6 +148,10 @@
                 cards[i].hide();
             }
         }
+        mainKind = getKind(cards[0].id);
+        var mainEl = document.getElementById(cards[0].id);
+        el.style.top = (150) + "px";
+        cards[0].show();
     }
 
     var refillFirstHand = function() {
