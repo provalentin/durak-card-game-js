@@ -216,9 +216,13 @@
         if(centerStack.length % 2 === 1) {
             var prevCardId = cards[centerStack[centerStack.length - 1]].id;
             console.log("Current > Prev: "  + currentCardId + " " + prevCardId);
-            //TODO: need to check main kind
-            return (getKind(currentCardId)===getKind(prevCardId))
-                &&(currentCardId > prevCardId);
+            
+            if (getKind(currentCardId)===getKind(prevCardId)) {
+                return (currentCardId > prevCardId);
+            }else{
+              //TODO: need to check main kind
+              return getKind(currentCardId)===mainKind;   
+            }    
         } else {
           //TODO: check same kind and main kind
           return isValidValue(currentCardId); //for test only, remove later
