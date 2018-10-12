@@ -198,7 +198,7 @@
     function isValidValue(id) {
       var values = [];  
       for(let i=0;i<centerStack.length;i++){
-           values.push(centerStack[i].id % 100);
+           values.push(centerStack[i] % 100);
       }
       return values.includes(id%100);
     }
