@@ -251,21 +251,6 @@
         console.log("render center battle field");
         var localCounter = 0;
 
-        //stupid render method
-        // for(let i=0;i<52;i++){
-        //     if(cards[i].status===3) {
-        //         localCounter++;
-        //         var el = document.getElementById(cards[i].id);
-        //         // console.log();
-        //         el.style.left = SECOND_HAND_OFFSET_X
-        //             + Math.floor((localCounter + 1) / 2) * CARD_HAND_WIDTH+"px";
-        //         el.style.top = localCounter %2==0?
-        //             CENTER_OFFSET_Y+"px":
-        //             CENTER_OFFSET_Y2+"px";
-        //         el.style.backgroundImage = "url('img/" + cards[i].id + ".png')";
-        //     }
-        // }
-
         //correct sequence
         for(let i=0;i<centerStack.length;i++){
             var el = document.getElementById(cards[centerStack[i]].id);
@@ -276,6 +261,7 @@
                 CENTER_OFFSET_Y+"px":
                 CENTER_OFFSET_Y2+"px";
             el.style.backgroundImage = "url('img/" + cards[centerStack[i]].id + ".png')";
+            el.style.zIndex = localCounter+"";
             localCounter++;
         }
     }
