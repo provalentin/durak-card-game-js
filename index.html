@@ -177,6 +177,11 @@
     }
 
     function moveToCenter(index) {
+        if(isGameOver()) {
+            var winner = getWinner();
+            alert("winner is " + winner);
+            return;
+        }
         console.log('click on index # ' + index);
         if (cards[index].status === currentPlayer) {
             if(isValidMove(index)) {
@@ -254,6 +259,29 @@
         //console.log(firstHand);
     }
 
+    var isGameOver = function(){
+        var firstHandSize = getSize(1);
+        var secondHandSize = getSize(2);
+        var stackSize = getSize(0);
+        var fieldSize = getSize(3);
+        return stackSize === 0
+            //&& (fieldSize%2 === 0)
+            && (firstHandSize === 0 || secondHandSize === 0);
+    }
+
+    var getWinner = function(){
+        var firstHandSize = getSize(1);
+        var secondHandSize = getSize(2);
+        var stackSize = getSize(0);
+        var fieldSize = getSize(3);
+        if(firstHandSize === 0 && secondHandSize === 0 && (fieldSize%2 === 0) ) return 0;
+        //TODO: check if valid move for last card
+        if(firstHandSize === 0) return 1;
+        //TODO: check if valid move for last card
+        if(secondHandSize === 0) return 2;
+        return 0;
+    }
+
     var renderSecondHand = function() {
         console.log("render second hand");
         var localCounter = 0;
@@ -327,6 +355,13 @@
                     cards[i].hide();
                 }
             }
+
+            if(isGameOver()) {
+                var winner = getWinner();
+                alert("winner is " + winner);
+                return;
+            }
+
             changePlayer();
             renderTrash();
             refillFirstHand();
