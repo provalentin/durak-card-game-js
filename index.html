@@ -101,6 +101,7 @@
     var firstHand = [];
     var secondHand = [];
     var centerStack = [];
+    var compHand = [];
     var status = {};
     var isGameOver = false;
     var isFirstPlayer = true;
@@ -176,6 +177,30 @@
         }
     }
 
+    function computerMove(){
+        if(currentPlayer === 1 ) return;
+        compHand = [];
+        for(let i=0;i<52;i++) {
+            if (cards[i].status === 2) {
+                compHand.push(i);
+            }
+        }
+        var secondHandSize = getSize(2);
+        for(let i = 0; i< 10;i++) {
+            let index = Math.floor(Math.random() * secondHandSize);
+            console.log("random index: " + index);
+            if(isValidMove(compHand[index])){
+                //MAKE MOVE
+                console.log("VALID MOVE: " + index);
+                moveToCenter(compHand[index]);
+                return;
+            }else{
+                console.log("invalid move: " + index + " " + cards[index]);
+            }
+        }
+
+    }
+
     function moveToCenter(index) {
         if(isGameOver()) {
             var winner = getWinner();
@@ -193,6 +218,8 @@
                 renderCenter();
 
                 changePlayer();
+
+                computerMove();
             }
         }
     }
@@ -293,7 +320,7 @@
                 el.style.left = SECOND_HAND_OFFSET_X + localCounter * CARD_HAND_WIDTH+"px";
                 el.style.top = SECOND_HAND_OFFSET_Y+"px";
                 //TODO: hide after testing
-                cards[i].show();
+                //cards[i].show();
             }
         }
     }
@@ -369,6 +396,7 @@
             refillSecondHand();
             renderSecondHand();
             centerStack = [];
+            computerMove();
         };
     }
 
