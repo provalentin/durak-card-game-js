@@ -7,74 +7,20 @@
 
 </head>
 <body>
-<div class="game-filed">
-    <div id="102" class="card-back"></div>
-    <div id="103" class="card-back"></div>
-    <div id="104" class="card-back"></div>
-    <div id="105" class="card-back"></div>
-    <div id="106" class="card-back"></div>
-    <div id="107" class="card-back"></div>
-    <div id="108" class="card-back"></div>
-    <div id="109" class="card-back"></div>
-    <div id="110" class="card-back"></div>
-    <div id="111" class="card-back"></div>
-    <div id="112" class="card-back"></div>
-    <div id="113" class="card-back"></div>
-    <div id="114" class="card-back"></div>
-
-    <div id="202" class="card-back"></div>
-    <div id="203" class="card-back"></div>
-    <div id="204" class="card-back"></div>
-    <div id="205" class="card-back"></div>
-    <div id="206" class="card-back"></div>
-    <div id="207" class="card-back"></div>
-    <div id="208" class="card-back"></div>
-    <div id="209" class="card-back"></div>
-    <div id="210" class="card-back"></div>
-    <div id="211" class="card-back"></div>
-    <div id="212" class="card-back"></div>
-    <div id="213" class="card-back"></div>
-    <div id="214" class="card-back"></div>
-
-    <div id="302" class="card-back"></div>
-    <div id="303" class="card-back"></div>
-    <div id="304" class="card-back"></div>
-    <div id="305" class="card-back"></div>
-    <div id="306" class="card-back"></div>
-    <div id="307" class="card-back"></div>
-    <div id="308" class="card-back"></div>
-    <div id="309" class="card-back"></div>
-    <div id="310" class="card-back"></div>
-    <div id="311" class="card-back"></div>
-    <div id="312" class="card-back"></div>
-    <div id="313" class="card-back"></div>
-    <div id="314" class="card-back"></div>
-
-    <div id="402" class="card-back"></div>
-    <div id="403" class="card-back"></div>
-    <div id="404" class="card-back"></div>
-    <div id="405" class="card-back"></div>
-    <div id="406" class="card-back"></div>
-    <div id="407" class="card-back"></div>
-    <div id="408" class="card-back"></div>
-    <div id="409" class="card-back"></div>
-    <div id="410" class="card-back"></div>
-    <div id="411" class="card-back"></div>
-    <div id="412" class="card-back"></div>
-    <div id="413" class="card-back"></div>
-    <div id="414" class="card-back"></div>
+<div id="canvas" class="game-filed">
 
 </div>
 <button id="next_move" class="next_button">Next move</button>
 <script>
-    var Card = function(id) {
+    function Card(id) {
         this.id = id;
         this.isVisible = false;
         //status:
         // 0 - stack,
         // 1 - first hand,
         // 2 - second hand,
-        // 3 - out
+        // 3 - on field
+        // 4 - out
         this.status = 0;
         this.hide = function(){
             document.getElementById(this.id).style
@@ -110,10 +56,15 @@
 
     var stackSetup = function (){
         console.log("stack setup");
+        var canvas = document.getElementById("canvas");
         for(var i = 1; i<5; i++) {
             for(var j=6;j<15;j++) {
                 allCards.push(i * 100 + j);
                 allCardsString.push(i*100 + j + "");
+                var el = document.createElement('div');
+                el.id = i * 100 + j;
+                el.classList.add("card-back");
+                canvas.appendChild(el);
                 cards.push(new Card(i * 100 + j));
             }
         }
