@@ -117,7 +117,7 @@
                 cards.push(new Card(i * 100 + j));
             }
         }
-        for (var i = 0; i < 52; i++) {
+        for (var i = 0; i < cards.length; i++) {
           cards[i].status = 0;   
         }
     }
@@ -140,7 +140,7 @@
 
     var relayoutStack =  function() {
         console.log("stack relayout");
-        for (var i = 0; i < 52; i++) {
+        for (var i = 0; i < cards.length; i++) {
             if(cards[i].status === 0) {
                 var el = document.getElementById(cards[i].id);
                 el.style.top = (i * 2) + "px";
@@ -180,7 +180,7 @@
     function computerMove(){
         if(currentPlayer === 1 ) return;
         compHand = [];
-        for(let i=0;i<52;i++) {
+        for(let i=0;i<cards.length;i++) {
             if (cards[i].status === 2) {
                 compHand.push(i);
             }
@@ -272,7 +272,7 @@
     var renderFirstHand = function() {
         console.log("render first hand");
         var localCounter = 0;
-        for(let i=0;i<52;i++){
+        for(let i=0;i<cards.length;i++){
             if(cards[i].status===1) {
                 //firstHand.push(i);
                 localCounter++;
@@ -312,7 +312,7 @@
     var renderSecondHand = function() {
         console.log("render second hand");
         var localCounter = 0;
-        for(let i=0;i<52;i++){
+        for(let i=0;i<cards.length;i++){
             if(cards[i].status===2) {
                 //firstHand.push(i);
                 localCounter++;
@@ -347,7 +347,7 @@
     var renderTrash = function() {
         console.log("render trash");
         var localCounter = 0;
-        for(let i=0;i<52;i++){
+        for(let i=0;i<cards.length;i++){
             if(cards[i].status===4) {
                 localCounter++;
                 var el = document.getElementById(cards[i].id);
@@ -359,7 +359,7 @@
 
     var getSize = function(status) {
         var counter = 0;
-        for(let i=0;i<52;i++){
+        for(let i=0;i<cards.length;i++){
             if(cards[i].status === status) {
                 counter++;
             }
@@ -368,7 +368,7 @@
     }
 
     function setupClickHandlers() {
-        for(let i=0;i<52;i++) {
+        for(let i=0;i<cards.length;i++) {
             document.getElementById(cards[i].id).onclick = function(){
                 moveToCenter(i);
             }
@@ -376,7 +376,7 @@
         document.getElementById("next_move").onclick = function(){
             console.log("handle next move");
             var isOK = centerStack.length % 2 === 0;
-            for(let i=0;i<52;i++) {
+            for(let i=0;i<cards.length;i++) {
                 if(cards[i].status===3) {
                     cards[i].status = isOK?4:currentPlayer;
                     cards[i].hide();
