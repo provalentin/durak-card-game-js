@@ -7,6 +7,8 @@
     width: 75px;
     height: 110px;
     background-repeat: no-repeat;
+    transition-property: left top;
+    transition-duration: 1s;
 }
 
 .next_button{
