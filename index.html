@@ -208,20 +208,6 @@
         currentPlayer === 2 ? currentPlayer = 1 : currentPlayer = 2;
     }
 
-    var renderFirstHand = function() {
-        console.log("render first hand");
-        var localCounter = 0;
-        for(let i=0;i<cards.length;i++){
-            if(cards[i].status===1) {
-                localCounter++;
-                var el = document.getElementById(cards[i].id);
-                el.style.left = FIRST_HAND_OFFSET_X + localCounter * CARD_HAND_WIDTH+"px";
-                el.style.top = FIRST_HAND_OFFSET_Y+"px";
-                el.style.backgroundImage = "url('img/" + cards[i].id + ".png')";
-            }
-        }
-    }
-
     var isGameOver = function(){
         var firstHandSize = getSize(1);
         var secondHandSize = getSize(2);
@@ -240,6 +226,20 @@
         //TODO: check if valid move for last card
         if(secondHandSize === 0) return 2;
         return 0;
+    }
+
+    var renderFirstHand = function() {
+        console.log("render first hand");
+        var localCounter = 0;
+        for(let i=0;i<cards.length;i++){
+            if(cards[i].status===1) {
+                localCounter++;
+                var el = document.getElementById(cards[i].id);
+                el.style.left = FIRST_HAND_OFFSET_X + localCounter * CARD_HAND_WIDTH+"px";
+                el.style.top = FIRST_HAND_OFFSET_Y+"px";
+                el.style.backgroundImage = "url('img/" + cards[i].id + ".png')";
+            }
+        }
     }
 
     var renderSecondHand = function() {
