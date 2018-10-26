@@ -12,15 +12,14 @@
 </div>
 <button id="next_move" class="next_button">Next move</button>
 <script>
+    //Card status description:
+    // 0 - stack,
+    // 1 - first hand,
+    // 2 - second hand,
+    // 3 - on field
+    // 4 - out
     function Card(id) {
         this.id = id;
-        this.isVisible = false;
-        //status:
-        // 0 - stack,
-        // 1 - first hand,
-        // 2 - second hand,
-        // 3 - on field
-        // 4 - out
         this.status = 0;
         this.hide = function(){
             document.getElementById(this.id).style
@@ -44,13 +43,9 @@
     var allCards = [];
     var cards = [];
     var allCardsString = [];
-    var firstHand = [];
-    var secondHand = [];
     var centerStack = [];
     var compHand = [];
-    var status = {};
     var isGameOver = false;
-    var isFirstPlayer = true;
     var currentPlayer = 1;
     var mainKind = 0;
 
@@ -163,15 +158,16 @@
             if(isValidMove(index)) {
                 cards[index].status = 3;
                 centerStack.push(index);
-
                 renderSecondHand();
                 renderFirstHand();
                 renderCenter();
-
                 changePlayer();
-
                 computerMove();
+            }else{
+                //TODO: show hint "invalid card"
             }
+        }else{
+            //TODO: show hind "wrong player, it's not your turn"
         }
     }
 
@@ -188,8 +184,6 @@
       for(let i=0;i<centerStack.length;i++){
            values.push(cards[centerStack[i]].id % 100);
       }
-      console.log("on table values");
-      console.log(values);  
       return values.includes(id%100);
     }
     
@@ -198,8 +192,6 @@
         if(centerStack.length===0) return true;
         if(centerStack.length % 2 === 1) {
             var prevCardId = cards[centerStack[centerStack.length - 1]].id;
-            console.log("Current > Prev: "  + currentCardId + " " + prevCardId);
-            
             if (getKind(currentCardId)===getKind(prevCardId)) {
                 return (currentCardId > prevCardId);
             }else{
@@ -213,11 +205,7 @@
     }
 
     function changePlayer() {
-        if(currentPlayer === 2) {
-            currentPlayer = 1;
-        }else{
-            currentPlayer = 2;
-        }
+        currentPlayer === 2 ? currentPlayer = 1 : currentPlayer = 2;
     }
 
     var renderFirstHand = function() {
@@ -225,32 +213,26 @@
         var localCounter = 0;
         for(let i=0;i<cards.length;i++){
             if(cards[i].status===1) {
-                //firstHand.push(i);
                 localCounter++;
                 var el = document.getElementById(cards[i].id);
-                //console.log(el);
                 el.style.left = FIRST_HAND_OFFSET_X + localCounter * CARD_HAND_WIDTH+"px";
                 el.style.top = FIRST_HAND_OFFSET_Y+"px";
                 el.style.backgroundImage = "url('img/" + cards[i].id + ".png')";
             }
         }
-        //console.log(firstHand);
     }
 
     var isGameOver = function(){
         var firstHandSize = getSize(1);
         var secondHandSize = getSize(2);
         var stackSize = getSize(0);
-        var fieldSize = getSize(3);
         return stackSize === 0
-            //&& (fieldSize%2 === 0)
             && (firstHandSize === 0 || secondHandSize === 0);
     }
 
     var getWinner = function(){
         var firstHandSize = getSize(1);
         var secondHandSize = getSize(2);
-        var stackSize = getSize(0);
         var fieldSize = getSize(3);
         if(firstHandSize === 0 && secondHandSize === 0 && (fieldSize%2 === 0) ) return 0;
         //TODO: check if valid move for last card
@@ -265,13 +247,10 @@
         var localCounter = 0;
         for(let i=0;i<cards.length;i++){
             if(cards[i].status===2) {
-                //firstHand.push(i);
                 localCounter++;
                 var el = document.getElementById(cards[i].id);
                 el.style.left = SECOND_HAND_OFFSET_X + localCounter * CARD_HAND_WIDTH+"px";
                 el.style.top = SECOND_HAND_OFFSET_Y+"px";
-                //TODO: hide after testing
-                //cards[i].show();
             }
         }
     }
@@ -279,11 +258,8 @@
     var renderCenter = function() {
         console.log("render center battle field");
         var localCounter = 0;
-
-        //correct sequence
         for(let i=0;i<centerStack.length;i++){
             var el = document.getElementById(cards[centerStack[i]].id);
-            //console.log(el);
             el.style.left = SECOND_HAND_OFFSET_X
                 + Math.floor((localCounter + 2) / 2) * CARD_HAND_WIDTH+"px";
             el.style.top = localCounter %2==0?
